@@ -5,14 +5,23 @@ import ListadodePacientes from './components/ListadodePacientes'
 
 
 function App() {
-  
+  const [pacientes,setPacientes]=useState([])
 
   return (
     <div  className='container mx-auto mt-20'>
-      <Header/>
+      <Header 
+   
+      />
+      
       <div className='mt-12 md:flex '>
-      <Formulario/>
-      <ListadodePacientes/>
+      <Formulario
+        pacientes={pacientes}
+        setPacientes={setPacientes}
+        
+      />
+      <ListadodePacientes 
+        pacientes={pacientes}
+      />
       </div>
      
     </div>

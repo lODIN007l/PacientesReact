@@ -1,9 +1,10 @@
 import React from 'react'
 import {useState,useEffect} from 'react'
+import Error from './Error'
 
 
 
-function Formulario() {
+function Formulario({pacientes,setPacientes}) {
 
   const [nombre,setNombre]=useState('')
   const [propietario,setPropietario]=useState('')
@@ -13,6 +14,13 @@ function Formulario() {
   const [error,setError]=useState(false)
 
 
+  const generarID=()=>{
+      const random =Math.random().toString(36).substring(2)
+      const fecha=Date.now().toString(36)
+      return random+fecha;
+  }
+
+
   const handleSubmit = (e)=> {
     e.preventDefault()
 
@@ -20,12 +28,31 @@ function Formulario() {
     if ([nombre,propietario,email,fecha,sintomas].includes('')) {
       console.log('hay al meenos un campo vacio ')
       setError(true)
-      return
+      return;
     }
     setError(false)
 
+    //objeto de pacientes
+    const objetoPaciente={
+      nombre,
+      propietario,
+      email,
+      fecha,
+      sintomas,
+      id:generarID()
+    }
+    //console.log(objetoPaciente)
 
-    console.log("enviando formulario")
+
+    setPacientes([...pacientes, objetoPaciente])
+
+    //reinicio de form
+    setNombre('')
+    setPropietario('')
+    setEmail('')
+    setFecha('')
+    setSintomas('')
+
   }
 
 
@@ -50,11 +77,9 @@ function Formulario() {
           className='bg-white shadow-md rounded-lg py-10 px-5 mb-10 ml-5 mr-5'
         >
           {error&&(
-            <div className='bg-red-700 p-3 text-white text-center uppercase font-bold rounded mb-3'>
-              <p>
-                Todos los campos son obligatorios 
-              </p>
-            </div>
+           <Error 
+           mensaje='Todos los campos son obligatorios '
+           />
 
           )}
          <div className='mb-5'>

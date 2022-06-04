@@ -5,8 +5,10 @@ import Pacientes from  "./Pacientes"
 
 
 
-function ListadodePacientes() {
+function ListadodePacientes({pacientes}) {
+console.log(pacientes.length)
   return (
+    
     <div className='md:w-1/2  lg:w-3/5 md:h-screen overflow-y-scroll' >
     <h2 className='font-black text-center text-3xl'>
       Listado de Pacientes
@@ -17,8 +19,14 @@ function ListadodePacientes() {
             Pacientes y Citas
           </span>
       </p>
-      <Pacientes/>
-      <Pacientes/>
+      {pacientes.map((paciente)=> (
+        <Pacientes
+          key={paciente.id}
+          paciente={paciente}
+        />
+      
+      ))}
+      
       
     </div>
     
